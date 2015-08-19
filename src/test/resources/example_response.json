@@ -1,0 +1,76 @@
+{
+    "items": [{
+            "ID": 1,
+            "title": "Hello world!",
+            "status": "publish",
+            "type": "post",
+            "author": {
+                "ID": 1,
+                "username": "wpadmin",
+                "name": "wpadmin",
+                "first_name": "",
+                "last_name": "",
+                "nickname": "wpadmin",
+                "slug": "wpadmin",
+                "URL": "",
+                "avatar": "https:\/\/secure.gravatar.com\/avatar\/416cb12d7b8eb4d476ab215342b0773c?s=96",
+                "description": "",
+                "registered": "2015-08-05T17:45:12+00:00",
+                "meta": {
+                    "links": {
+                        "self": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/users\/1",
+                        "archives": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/users\/1\/posts"
+                    }
+                },
+                "title": "",
+                "github": "",
+                "stackID": ""
+            },
+            "content": "<p>Welcome to WordPress. This is your first post. Edit or delete it, then start blogging!<\/p>\n",
+            "parent": null,
+            "link": "https:\/\/developer-blog-wp.ext.nile.works\/2015\/08\/05\/hello-world\/",
+            "date": "2015-08-05T17:45:12",
+            "modified": "2015-08-05T17:45:12",
+            "format": "standard",
+            "slug": "hello-world",
+            "guid": "https:\/\/developer-blog-wp.ext.nile.works\/?p=1",
+            "excerpt": "<p>Welcome to WordPress. This is your first post. Edit or delete it, then start blogging!<\/p>\n",
+            "menu_order": 0,
+            "comment_status": "open",
+            "ping_status": "open",
+            "sticky": false,
+            "date_tz": "UTC",
+            "date_gmt": "2015-08-05T17:45:12",
+            "modified_tz": "UTC",
+            "modified_gmt": "2015-08-05T17:45:12",
+            "meta": {
+                "links": {
+                    "self": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts\/1",
+                    "author": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/users\/1",
+                    "collection": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts",
+                    "replies": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts\/1\/comments",
+                    "version-history": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts\/1\/revisions"
+                }
+            },
+            "blurb": "",
+            "featured_image": null,
+            "terms": {
+                "category": [{
+                        "ID": 1,
+                        "name": "Uncategorized",
+                        "slug": "uncategorized",
+                        "description": "",
+                        "taxonomy": "category",
+                        "parent": null,
+                        "count": 1,
+                        "link": "https:\/\/developer-blog-wp.ext.nile.works\/category\/uncategorized\/",
+                        "meta": {
+                            "links": {
+                                "collection": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/taxonomies\/category\/terms",
+                                "self": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/taxonomies\/category\/terms\/1"
+                            }
+                        }
+                    }]
+            }
+        }]
+}
