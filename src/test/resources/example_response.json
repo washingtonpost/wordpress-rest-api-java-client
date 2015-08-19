@@ -1,76 +1,885 @@
-{
-    "items": [{
-            "ID": 1,
-            "title": "Hello world!",
-            "status": "publish",
-            "type": "post",
-            "author": {
-                "ID": 1,
-                "username": "wpadmin",
-                "name": "wpadmin",
-                "first_name": "",
-                "last_name": "",
-                "nickname": "wpadmin",
-                "slug": "wpadmin",
-                "URL": "",
-                "avatar": "https:\/\/secure.gravatar.com\/avatar\/416cb12d7b8eb4d476ab215342b0773c?s=96",
-                "description": "",
-                "registered": "2015-08-05T17:45:12+00:00",
-                "meta": {
-                    "links": {
-                        "self": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/users\/1",
-                        "archives": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/users\/1\/posts"
-                    }
-                },
-                "title": "",
-                "github": "",
-                "stackID": ""
-            },
-            "content": "<p>Welcome to WordPress. This is your first post. Edit or delete it, then start blogging!<\/p>\n",
-            "parent": null,
-            "link": "https:\/\/developer-blog-wp.ext.nile.works\/2015\/08\/05\/hello-world\/",
-            "date": "2015-08-05T17:45:12",
-            "modified": "2015-08-05T17:45:12",
-            "format": "standard",
-            "slug": "hello-world",
-            "guid": "https:\/\/developer-blog-wp.ext.nile.works\/?p=1",
-            "excerpt": "<p>Welcome to WordPress. This is your first post. Edit or delete it, then start blogging!<\/p>\n",
-            "menu_order": 0,
-            "comment_status": "open",
-            "ping_status": "open",
-            "sticky": false,
-            "date_tz": "UTC",
-            "date_gmt": "2015-08-05T17:45:12",
-            "modified_tz": "UTC",
-            "modified_gmt": "2015-08-05T17:45:12",
+[{
+        "ID": 54,
+        "title": "Gulp for cross-newsroom workflows",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 4,
+            "username": "blanchards",
+            "name": "Seth Blanchard",
+            "first_name": "Seth",
+            "last_name": "Blanchard",
+            "nickname": "blanchards",
+            "slug": "blanchards",
+            "URL": "",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/blanchards-8.png",
+            "description": "Seth is a Senior Developer on the Engineering team working in the graphics department. He helps develop new story forms and smooths development process potholes",
+            "registered": "2015-07-24T14:42:48+00:00",
             "meta": {
                 "links": {
-                    "self": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts\/1",
-                    "author": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/users\/1",
-                    "collection": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts",
-                    "replies": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts\/1\/comments",
-                    "version-history": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/posts\/1\/revisions"
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/4",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/4\/posts"
                 }
             },
-            "blurb": "",
-            "featured_image": null,
-            "terms": {
-                "category": [{
-                        "ID": 1,
-                        "name": "Uncategorized",
-                        "slug": "uncategorized",
-                        "description": "",
-                        "taxonomy": "category",
-                        "parent": null,
-                        "count": 1,
-                        "link": "https:\/\/developer-blog-wp.ext.nile.works\/category\/uncategorized\/",
-                        "meta": {
-                            "links": {
-                                "collection": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/taxonomies\/category\/terms",
-                                "self": "https:\/\/developer-blog-wp.ext.nile.works\/wp-json\/taxonomies\/category\/terms\/1"
-                            }
-                        }
-                    }]
+            "title": "",
+            "github": "sethblanchard",
+            "stackID": ""
+        },
+        "content": "<p>At the Post we make a lot of great interactive graphics. Most of these are built as static html pages. It\u2019s a great way for our incredibly talented graphics team to work. They have flexibility to design and build the approach that is best for telling the story.<\/p>\n<p>There is a drawback to this approach &#8211; it makes it difficult to work with content from our CMS. Our reporters and photographer\u2019s workflow is built around having their work printed in the paper and displayed on <a href=\"https:\/\/washingtonpost.com\">washingtonpost.com<\/a> both of which are powered by a CMS. At the Post as we evolve how we tell stories online our interactive graphics must be integrated with great writing and awesome photography. How can we do that without making our graphics team hack a template to death or inject raw code into the CMS? Gulp provides an answer.<\/p>\n<h2>Gulp Glue<\/h2>\n<p>On our recent <a href=\"https:\/\/www.washingtonpost.com\/graphics\/world\/exodus\/black-route\/\">Black Route project<\/a> we tried a new approach that allowed our reporters and copy editors to work on the article and the graphics team to build interactive features without breaking either team\u2019s workflow.<\/p>\n<p>We use Gulp on the graphics team for our build tasks &#8211; SASS compilation, JavaScript modules etc. We really like the speed and flexibility it provides. And in this case it was the glue we could use to stick our graphics work together with the article being written in our CMS.<\/p>\n<p>So beyond our normal build tasks we came up with an approach to combine our interactive graphics being developed by the graphics editors with the article being written by the reporters. What we needed was a way to target different parts of the article with interactive graphics in a way that was familiar for our graphics editors. We came up with what we called the article transform, which along with a few other Gulp tasks allowed us to take interactive graphics, photos and an article stored in a CMS and combine them into a single HTML file which we could then publish online. Lets dive into the article transforms and other tasks in detail.<\/p>\n<h2>Article Transforms<\/h2>\n<p>The article transformation is the most interesting and important part of what we had Gulp do on this project. What if you could write jQuery selectors for where you wanted your HTML graphics inserted into article content and get the result as static html at the end? This is what the transformations allowed.<\/p>\n<p>Each transformation was stored as a file in a directory. The selector location and the transform was specified as front matter and the HTML injection we wanted applied was the body of the file like this:<\/p>\n<pre><code class=\"xml\">\r\n\u2014\r\nselector: \u2018article\u2019\r\naction: \u2018prepend\u2019\r\n\u2014\r\n&lt;div class=\u201cwrap\u2014right wrap\u2014map\u201d&gt;&lt;figure class=\u201clocator-map map\u201d id=\u201cfollow-locator\u201d&gt;&lt;\/figure&gt;&lt;\/div&gt;\r\n<\/code>\r\n<\/pre>\n<p>Our Gulp task runs through a directory of these files and saves them in memory:<\/p>\n<pre><code class=\"language-javascript\">\r\nvar memory = []; \/\/array of files contents etc... \r\n\r\ngulp.task('load-insertions', function() {\r\n  \/\/setup the objects we need... \r\n  memory = [];\r\n  return gulp.src(config.injections_src)\r\n  .pipe(frontMatter({ \r\n      property: 'fm',\r\n      remove: true \r\n    })) \r\n  \t\/\/ tap into the stream to get each file's data\r\n  .pipe( tap(function(file) {\r\n  \tconsole.log('Loading Injections: ' + path.basename(file.path));\r\n  \tvar newinsertion = {};\r\n  \tfor(var i in file.fm){\r\n  \t\tnewinsertion[i] = file.fm[i];\r\n  \t}\r\n    newinsertion.content = file.contents.toString();\r\n\r\n    memory.push(newinsertion);\r\n\r\n  }));\r\n});\r\n<\/code>\r\n<\/pre>\n<p>Now that we have all the transforms in memory we can download the article and apply them.<\/p>\n<h2>Download and transform<\/h2>\n<p>We have an internal JSON api for all stories in the CMS. Using <a href=\"https:\/\/github.com\/Metrime\/gulp-download\">gulp-download<\/a> we would pull down the story, turn it into a JS object using gulp-json-transform and pull out the article html content. Then we parse that using <a href=\"https:\/\/github.com\/KenPowers\/gulp-cheerio\">Cheerio<\/a> and apply our injections.<\/p>\n<pre><code class=\"language-javascript\">\r\ngulp.task('download-transform', ['load-insertions'], function () {\r\n    return download(config.src_url)\r\n    \t\t.pipe(jsonTransform(function(data) {\r\n\t\t\t\t\t\/\/we only need the html node from story adapter\r\n\t\t\t        return data.html;\r\n\t\t    }))\r\n\t\t    .pipe(cheerio(function ($, file) {\r\n\r\n\t\t    \tvar $paragraphs = $('p'); \/\/get all the paragraphs\r\n\r\n\t\t    \tfor(var i=0; i&lt; memory.length; i++){\r\n\t    \t\t\tvar insertion = memory[i];\r\n\t\t    \t\tif(insertion['offset'] &amp;&amp; insertion['selector'] == 'p'){\r\n\t\t    \t\t\t$paragraphs.eq(insertion['offset'])[insertion['action']](insertion['content']);\r\n\t\t    \t\t}else{\r\n\t\t    \t\t\t$(insertion['selector'])[insertion['action']](insertion['content']);\r\n\t\t    \t\t}\r\n\t\t    \t}\r\n                    }))\r\n\t\t\t.pipe(rename(config.file_name))\r\n        \t.pipe(gulp.dest(config.dest));\r\n});\r\n<\/code>\r\n<\/pre>\n<p>Note that this task uses the injections stored in memory by the previous task and runs that previous task as a dependancy. This approach was inspired by this <a href=\"https:\/\/github.com\/gulpjs\/gulp\/blob\/master\/docs\/recipes\/make-stream-from-buffer.md\">Gulp recipe<\/a>. We kept the configuration in the <a href=\"https:\/\/github.com\/lmtm\/gulp-front-matter\">front matter<\/a> where the injections were specified so the task wouldn\u2019t have to be constantly updated &#8211; even as the article or injection changed. The huge upside of doing it this way is the syntax for the injections is ultra familiar: it\u2019s just jQuery. And because we can use any css selectors we want even as the reporters change the content it won\u2019t break the interactive graphics that are being built.<\/p>\n<h2>All together<\/h2>\n<p>So in the end our complete article transformation pipeline performs the following tasks:<\/p>\n<ol>\n<li>Load into memory article transforms that will apply graphics specific markup to the article<\/li>\n<li>Download the article from the JSON api endpoint<\/li>\n<li>Parse the html from the downloaded article using cheerio<\/li>\n<li>Apply those transforms to the parsed html<\/li>\n<li>Inject the transformed article html into the graphics template<\/li>\n<li>Save the file and serve it locally (ready for production)<\/li>\n<\/ol>\n<p>It&#8217;s probably even clearer as a picture:<br \/>\n<a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/uploads\/2015\/07\/Blog-diagram.001.jpg\"><img class=\"size-medium wp-image-63\" src=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/uploads\/2015\/07\/Blog-diagram.001-196x300.jpg\" alt=\"Blog-diagram.001\" width=\"196\" height=\"300\" \/><\/a><\/p>\n<h2>Connected Newsroom<\/h2>\n<p>Being able to connect Gulp tasks like legos allows us take things we are familiar with &#8211; our normal build system and javascript &#8211; and extend them to make functional, cross-newsroom workflows. These workflows allow our reports and graphics editors to collaborate and tell amazing stories in inventive ways on tight deadlines using workflows everyone is comfortable with.<\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/27\/gulp-for-cross-newsroom-workflows\/",
+        "date": "2015-07-27T13:13:01",
+        "modified": "2015-08-06T18:42:36",
+        "format": "standard",
+        "slug": "gulp-for-cross-newsroom-workflows",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=54",
+        "excerpt": "<p>At the Post we make a lot of great interactive graphics. Most of these are built as static html pages. It\u2019s a great way for our incredibly talented graphics team to work. They have flexibility to design and build the approach that is best for telling the story. There is a drawback to this approach &hellip; <a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/27\/gulp-for-cross-newsroom-workflows\/\" class=\"more-link\">Continue reading <span class=\"screen-reader-text\">Gulp for cross-newsroom workflows<\/span><\/a><\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-07-27T13:13:01",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-06T18:42:36",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/54",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/4",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/54\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/54\/revisions"
             }
-        }]
-}
+        },
+        "blurb": "At the Post as we evolve how we tell stories online our interactive graphics must be integrated with the great writing and awesome photography. How can we do that without making our graphics team hack a template to death or inject raw code into the CMS? Gulp provides an answer.",
+        "featured_image": null,
+        "terms": {
+            "post_tag": [{
+                    "ID": 18,
+                    "name": "graphics",
+                    "slug": "graphics",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 1,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/graphics\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/18"
+                        }
+                    }
+                }, {
+                    "ID": 15,
+                    "name": "gulp",
+                    "slug": "gulp",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 1,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/gulp\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/15"
+                        }
+                    }
+                }, {
+                    "ID": 17,
+                    "name": "javascript",
+                    "slug": "javascript",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 1,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/javascript\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/17"
+                        }
+                    }
+                }, {
+                    "ID": 19,
+                    "name": "newsroom",
+                    "slug": "newsroom",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 1,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/newsroom\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/19"
+                        }
+                    }
+                }, {
+                    "ID": 16,
+                    "name": "sass",
+                    "slug": "sass",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 1,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/sass\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/16"
+                        }
+                    }
+                }],
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 7,
+        "title": "Some Sample Code WIth a Much Longer Title What Happens When I Update This To Add Lots of Words And Verbosity For Testing Purposes",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 1,
+            "username": "admin",
+            "name": "admin",
+            "first_name": "",
+            "last_name": "",
+            "nickname": "admin",
+            "slug": "admin",
+            "URL": "",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/admin-4.jpg",
+            "description": "",
+            "registered": "2015-06-18T21:02:11+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/1",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/1\/posts"
+                }
+            },
+            "title": "",
+            "github": "timothy-kim",
+            "stackID": ""
+        },
+        "content": "<figure id=\"attachment_8\" style=\"width: 1920px;\" class=\"wp-caption alignnone\"><img class=\"wp-image-8 size-full\" src=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/uploads\/2015\/06\/Screenshot-2015-06-08-10.16.04.png\" alt=\"Screenshot 2015-06-08 10.16.04\" width=\"1920\" height=\"1080\" \/><figcaption class=\"wp-caption-text\">Code is often used to generate apps on the internet.<\/figcaption><\/figure>\n<p>Have you ever wanted to code? Well here is your chance. &#8220;Coding&#8221; is just a fancy word for &#8220;typing text into a thingy that interprets or compiles your text into computer instructions.&#8221;\u00a0 So anyone can do it.\u00a0 Open up your favorite text editor and type the following:<\/p>\n<p><code class=\"language-php\"><br \/>\n$foo = \"bar\";<br \/>\n<\/code><\/p>\n<p><code class=\"language-php\"><br \/>\n&lt;?php $variable = \"Foo\";<br \/>\n$second_variable = \"Bar\";<br \/>\n$final_variable = $variable . \" \" . $second_variable;<br \/>\n?&gt;&lt;?= $final_variable ?&gt;<br \/>\n<\/code><\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/08\/some-sample-code\/",
+        "date": "2015-07-08T20:00:14",
+        "modified": "2015-08-19T20:00:30",
+        "format": "standard",
+        "slug": "some-sample-code",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=7",
+        "excerpt": "<p>Have you ever wanted to code? Well here is your chance. &#8220;Coding&#8221; is just a fancy word for &#8220;typing text into a thingy that interprets or compiles your text into computer instructions.&#8221;\u00a0 So anyone can do it.\u00a0 Open up your favorite text editor and type the following: $foo = &#8220;bar&#8221;; &lt;?php $variable = &#8220;Foo&#8221;; $second_variable &hellip; <a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/08\/some-sample-code\/\" class=\"more-link\">Continue reading <span class=\"screen-reader-text\">Some Sample Code WIth a Much Longer Title What Happens When I Update This To Add Lots of Words And Verbosity For Testing Purposes<\/span><\/a><\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-07-08T20:00:14",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:30",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/7",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/1",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/7\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/7\/revisions"
+            }
+        },
+        "blurb": "Have you ever wanted to code? Well here is your chance. \"Coding\" is just a fancy word for \"typing text into a thingy that interprets or compiles your text into computer instructions.\"  So anyone can do it.  Open up your favorite text editor and get started!",
+        "featured_image": null,
+        "terms": {
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 24,
+        "title": "After Burst",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 3,
+            "username": "haroon",
+            "name": "Haroon Ghafoori",
+            "first_name": "Haroon",
+            "last_name": "Ghafoori",
+            "nickname": "haroon",
+            "slug": "haroon",
+            "URL": "",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/haroon-7.png",
+            "description": "",
+            "registered": "2015-06-26T17:35:00+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3\/posts"
+                }
+            },
+            "title": "",
+            "github": "",
+            "stackID": ""
+        },
+        "content": "<p>Players must control a combat <a title=\"Robot\" href=\"https:\/\/en.wikipedia.org\/wiki\/Robot\">robot<\/a> as they make their way towards their ultimate goal: destroying the enemy orb. Each level only has one screen to blast hostile robots, solve challenging platforms, and manipulate a series of short puzzles.<sup id=\"cite_ref-mobygames_3-0\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/After_Burst#cite_note-mobygames-3\">[3]<\/a><\/sup><\/p>\n<p>30 stages await players as they look forward to a boss battle on every tenth stage.<sup id=\"cite_ref-4\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/After_Burst#cite_note-4\">[4]<\/a><\/sup> A weapon is available; its gunfire can be altered by changing the angle of the gun. Even the distance of the shot can be changed by holding down the button for extended periods of time. A two-player <a title=\"Duel\" href=\"https:\/\/en.wikipedia.org\/wiki\/Duel\">duel<\/a> mode has been added; allowing players to fight either another player or the <a class=\"mw-redirect\" title=\"Game artificial intelligence\" href=\"https:\/\/en.wikipedia.org\/wiki\/Game_artificial_intelligence\">AI<\/a>.<sup id=\"cite_ref-mobygames_3-1\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/After_Burst#cite_note-mobygames-3\">[3]<\/a><\/sup><\/p>\n<p>This game employs a third-person perspective with a side-view.<sup id=\"cite_ref-mobygames_3-2\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/After_Burst#cite_note-mobygames-3\">[3]<\/a><\/sup><sup id=\"cite_ref-5\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/After_Burst#cite_note-5\">[5]<\/a><\/sup><\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/08\/after-burst\/",
+        "date": "2015-07-08T17:38:17",
+        "modified": "2015-08-19T20:00:30",
+        "format": "standard",
+        "slug": "after-burst",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=24",
+        "excerpt": "<p>Players must control a combat robot as they make their way towards their ultimate goal: destroying the enemy orb. Each level only has one screen to blast hostile robots, solve challenging platforms, and manipulate a series of short puzzles.[3] 30 stages await players as they look forward to a boss battle on every tenth stage.[4] &hellip; <a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/08\/after-burst\/\" class=\"more-link\">Continue reading <span class=\"screen-reader-text\">After Burst<\/span><\/a><\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-07-08T17:38:17",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:30",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/24",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/24\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/24\/revisions"
+            }
+        },
+        "blurb": "A weapon is available; its gunfire can be altered by changing the angle of the gun. Even the distance of the shot can be changed by holding down the button for extended periods of time. A two-player duel mode has been added; allowing players to fight either another player or the AI. Excitement made manifest.",
+        "featured_image": null,
+        "terms": {
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 19,
+        "title": "Ms. Tree",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 3,
+            "username": "haroon",
+            "name": "Haroon Ghafoori",
+            "first_name": "Haroon",
+            "last_name": "Ghafoori",
+            "nickname": "haroon",
+            "slug": "haroon",
+            "URL": "",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/haroon-7.png",
+            "description": "",
+            "registered": "2015-06-26T17:35:00+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3\/posts"
+                }
+            },
+            "title": "",
+            "github": "",
+            "stackID": ""
+        },
+        "content": "<table class=\"metadata plainlinks ambox ambox-content ambox-Original_research\">\n<tbody>\n<tr>\n<td class=\"mbox-text\">\u00a0<a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/uploads\/2015\/06\/MsTree21.jpg\"><img class=\"alignnone size-full wp-image-20\" src=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/uploads\/2015\/06\/MsTree21.jpg\" alt=\"MsTree21\" width=\"325\" height=\"483\" \/><\/a><\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p><b>Ms. Tree<\/b> was a <a title=\"Comic book\" href=\"https:\/\/en.wikipedia.org\/wiki\/Comic_book\">comic book<\/a> series and character co-created by writer <a title=\"Max Allan Collins\" href=\"https:\/\/en.wikipedia.org\/wiki\/Max_Allan_Collins\">Max Allan Collins<\/a> and the series&#8217; artist <a title=\"Terry Beatty\" href=\"https:\/\/en.wikipedia.org\/wiki\/Terry_Beatty\">Terry Beatty<\/a>. In addition to its obvious play on the word &#8220;mystery&#8221;, Ms. Tree was also the name of the series&#8217; main character.<\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/08\/ms-tree\/",
+        "date": "2015-07-08T17:37:06",
+        "modified": "2015-08-19T20:00:30",
+        "format": "standard",
+        "slug": "ms-tree",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=19",
+        "excerpt": "<p>\u00a0 Ms. Tree was a comic book series and character co-created by writer Max Allan Collins and the series&#8217; artist Terry Beatty. In addition to its obvious play on the word &#8220;mystery&#8221;, Ms. Tree was also the name of the series&#8217; main character.<\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-07-08T17:37:06",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:30",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/19",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/19\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/19\/revisions"
+            }
+        },
+        "blurb": "Ms. Tree was a comic book series and character co-created by writer Max Allan Collins and the series' artist Terry Beatty.",
+        "featured_image": null,
+        "terms": {
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 17,
+        "title": "Chris Layhe",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 3,
+            "username": "haroon",
+            "name": "Haroon Ghafoori",
+            "first_name": "Haroon",
+            "last_name": "Ghafoori",
+            "nickname": "haroon",
+            "slug": "haroon",
+            "URL": "",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/haroon-7.png",
+            "description": "",
+            "registered": "2015-06-26T17:35:00+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3\/posts"
+                }
+            },
+            "title": "",
+            "github": "",
+            "stackID": ""
+        },
+        "content": "<p><b>Chris Layhe<\/b> is an <a title=\"English people\" href=\"https:\/\/en.wikipedia.org\/wiki\/English_people\">English<\/a> musician, and founding member of <a title=\"Liverpool\" href=\"https:\/\/en.wikipedia.org\/wiki\/Liverpool\">Liverpool<\/a> <a title=\"Alternative rock\" href=\"https:\/\/en.wikipedia.org\/wiki\/Alternative_rock\">alternative rock<\/a> band, <a title=\"The Icicle Works\" href=\"https:\/\/en.wikipedia.org\/wiki\/The_Icicle_Works\">The Icicle Works<\/a>.<\/p>\n<p>Signed to <a class=\"mw-redirect\" title=\"Beggar's Banquet Records\" href=\"https:\/\/en.wikipedia.org\/wiki\/Beggar%27s_Banquet_Records\">Beggar&#8217;s Banquet<\/a>, The Icicle Works had a handful of <a title=\"Record chart\" href=\"https:\/\/en.wikipedia.org\/wiki\/Record_chart\">chart<\/a> <a title=\"Hit single\" href=\"https:\/\/en.wikipedia.org\/wiki\/Hit_single\">hits<\/a> (notably &#8220;<a title=\"Birds Fly (Whisper to a Scream)\" href=\"https:\/\/en.wikipedia.org\/wiki\/Birds_Fly_%28Whisper_to_a_Scream%29\">Birds Fly (Whisper to a Scream)<\/a>&#8220;) and toured the <a title=\"United States\" href=\"https:\/\/en.wikipedia.org\/wiki\/United_States\">US<\/a> and mainland Europe before the departure of original members Layhe and drummer <a title=\"Chris Sharrock\" href=\"https:\/\/en.wikipedia.org\/wiki\/Chris_Sharrock\">Chris Sharrock<\/a> in 1989.<sup id=\"cite_ref-1\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/Chris_Layhe#cite_note-1\">[1]<\/a><\/sup><\/p>\n<p>In the 1990s, Layhe worked as events organiser at Blue Coat Arts Centre in Liverpool, co-ordinating appearances by <a title=\"Tori Amos\" href=\"https:\/\/en.wikipedia.org\/wiki\/Tori_Amos\">Tori Amos<\/a> and <a title=\"Doris Lessing\" href=\"https:\/\/en.wikipedia.org\/wiki\/Doris_Lessing\">Doris Lessing<\/a>, among others.<sup id=\"cite_ref-2\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/Chris_Layhe#cite_note-2\">[2]<\/a><\/sup><\/p>\n<p>Though originally a bassist, Layhe currently teaches guitar at the Manchester Adult Education Service. Co-writer (with <a title=\"Ian McNabb\" href=\"https:\/\/en.wikipedia.org\/wiki\/Ian_McNabb\">Ian McNabb<\/a>) of several early Icicle Works songs, he has also performed his own work solo, and with blues rock band Oyster, in venues throughout the north of England.<\/p>\n<p>In 2009, Layhe formed the <a title=\"Indie rock\" href=\"https:\/\/en.wikipedia.org\/wiki\/Indie_rock\">indie rock<\/a> band Shadow History, with the Australian singer\/guitarist <a title=\"Ben Winch\" href=\"https:\/\/en.wikipedia.org\/wiki\/Ben_Winch\">Ben Winch<\/a>, and returned to bass playing after a lengthy hiatus.<\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/07\/chris-layhe\/",
+        "date": "2015-07-07T17:35:55",
+        "modified": "2015-08-19T20:00:30",
+        "format": "standard",
+        "slug": "chris-layhe",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=17",
+        "excerpt": "<p>Chris Layhe is an English musician, and founding member of Liverpool alternative rock band, The Icicle Works. Signed to Beggar&#8217;s Banquet, The Icicle Works had a handful of chart hits (notably &#8220;Birds Fly (Whisper to a Scream)&#8220;) and toured the US and mainland Europe before the departure of original members Layhe and drummer Chris Sharrock &hellip; <a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/07\/chris-layhe\/\" class=\"more-link\">Continue reading <span class=\"screen-reader-text\">Chris Layhe<\/span><\/a><\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-07-07T17:35:55",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:30",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/17",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/17\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/17\/revisions"
+            }
+        },
+        "blurb": "Chris Layhe is an English musician. Signed to Beggar's Banquet, The Icicle Works had a handful of chart hits (notably \"Birds Fly (Whisper to a Scream)\") and toured the US and mainland Europe before the departure of original members Layhe and drummer Chris Sharrock in 1989. ",
+        "featured_image": null,
+        "terms": {
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 14,
+        "title": "Stanley Savige",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 2,
+            "username": "gengel",
+            "name": "Gregory Engel",
+            "first_name": "Gregory",
+            "last_name": "Engel",
+            "nickname": "gengel",
+            "slug": "gengel",
+            "URL": "http:\/\/www.washingtonpost.com",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/gengel-6.jpg",
+            "description": "",
+            "registered": "2015-06-26T17:26:51+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2\/posts"
+                }
+            },
+            "title": "developer",
+            "github": "gengel",
+            "stackID": ""
+        },
+        "content": "<p>Lieutenant General Sir Stanley George Savige, KBE, CB, DSO, MC, ED (26 June 1890 \u2013 15 May 1954) was an Australian Army soldier and officer who served in the First World War and Second World War.<\/p>\n<p>In March 1915, after the outbreak of the First World War, Savige enlisted in the First Australian Imperial Force. He served in the ranks during the Gallipoli Campaign, and received a commission. He later served on the Western Front, where he was twice recommended for the Military Cross for bravery. In 1918, he joined Dunsterforce and served in the Caucasus Campaign, during which he was instrumental in protecting thousands of Assyrian refugees. He subsequently wrote a book, Stalky&#8217;s Forlorn Hope, about his experiences. After the war he played a key role in the establishment of Legacy Australia, the war widows and orphans benefit fund.<\/p>\n<p>During the early years of the Second World War, Savige commanded the 17th Infantry Brigade in the North African Campaign, the Battle of Greece and Syria\u2013Lebanon Campaign. His outspoken criticism of professional soldiers earned him their rancour. He returned to Australia in early 1942, and later commanded the 3rd Division in the Salamaua\u2013Lae campaign. He ultimately rose to the rank of lieutenant general in the Australian Army, commanding the II Corps in the Bougainville Campaign.<\/p>\n<p>In later life, Savige was a director of Olympic Tyre &amp; Rubber Ltd from 1946 to 1951 and chairman of Moran &amp; Cato Ltd from 1950 to 1951. He was also chairman of the Central War Gratuity Board from 1946 to 1951, and a commissioner of the State Savings Bank of Victoria.<\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/07\/stanley-savige\/",
+        "date": "2015-07-07T17:33:13",
+        "modified": "2015-08-19T20:00:30",
+        "format": "standard",
+        "slug": "stanley-savige",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=14",
+        "excerpt": "<p>Lieutenant General Sir Stanley George Savige, KBE, CB, DSO, MC, ED (26 June 1890 \u2013 15 May 1954) was an Australian Army soldier and officer who served in the First World War and Second World War. In March 1915, after the outbreak of the First World War, Savige enlisted in the First Australian Imperial Force. &hellip; <a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/07\/stanley-savige\/\" class=\"more-link\">Continue reading <span class=\"screen-reader-text\">Stanley Savige<\/span><\/a><\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-07-07T17:33:13",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:30",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/14",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/14\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/14\/revisions"
+            }
+        },
+        "blurb": "During the early years of the Second World War, Savige commanded the 17th Infantry Brigade in the North African Campaign, the Battle of Greece and Syria\u2013Lebanon Campaign. His outspoken criticism of professional soldiers earned him their rancour.",
+        "featured_image": null,
+        "terms": {
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 12,
+        "title": "jQuery Code Example",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 2,
+            "username": "gengel",
+            "name": "Gregory Engel",
+            "first_name": "Gregory",
+            "last_name": "Engel",
+            "nickname": "gengel",
+            "slug": "gengel",
+            "URL": "http:\/\/www.washingtonpost.com",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/gengel-6.jpg",
+            "description": "",
+            "registered": "2015-06-26T17:26:51+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2\/posts"
+                }
+            },
+            "title": "developer",
+            "github": "gengel",
+            "stackID": ""
+        },
+        "content": "<pre><code class=\"language-javascript\">\r\nwp_eng.fix_position = function fix_position($element, append) {\r\n  if ($element.css('display') !== \"none\") {\r\n    $element\r\n      .data('start-top', $element.css('top'))\r\n      .data('start-left', $element.css('left'))\r\n      .data('start-position', $element.css('position'))\r\n      .css({\r\n        'position': \"fixed\",\r\n        'top': $element.offset().top,\r\n        'left': $element.offset().left\r\n      });\r\n    if (append) {\r\n      fixed_$elements.push($element);\r\n    }\r\n  }\r\n};\r\n<\/code><\/pre>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/07\/01\/jquery-code-example\/",
+        "date": "2015-07-01T17:31:20",
+        "modified": "2015-08-19T20:00:30",
+        "format": "standard",
+        "slug": "jquery-code-example",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=12",
+        "excerpt": "<p>wp_eng.fix_position = function fix_position($element, append) { if ($element.css(&#8216;display&#8217;) !== &#8220;none&#8221;) { $element .data(&#8216;start-top&#8217;, $element.css(&#8216;top&#8217;)) .data(&#8216;start-left&#8217;, $element.css(&#8216;left&#8217;)) .data(&#8216;start-position&#8217;, $element.css(&#8216;position&#8217;)) .css({ &#8216;position': &#8220;fixed&#8221;, &#8216;top': $element.offset().top, &#8216;left': $element.offset().left }); if (append) { fixed_$elements.push($element); } } };<\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-07-01T17:31:20",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:30",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/12",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/12\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/12\/revisions"
+            }
+        },
+        "blurb": "jQuery was a popular JavaScript library in the 2000s that has since fallen out of favor as most of its ideas were incorporated directly into the DOM API of most modern browsers.  Here is a historic relic.",
+        "featured_image": null,
+        "terms": {
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 30,
+        "title": "Medium Wave",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 3,
+            "username": "haroon",
+            "name": "Haroon Ghafoori",
+            "first_name": "Haroon",
+            "last_name": "Ghafoori",
+            "nickname": "haroon",
+            "slug": "haroon",
+            "URL": "",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/haroon-7.png",
+            "description": "",
+            "registered": "2015-06-26T17:35:00+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3\/posts"
+                }
+            },
+            "title": "",
+            "github": "",
+            "stackID": ""
+        },
+        "content": "<div class=\"hatnote relarticle mainarticle\"><\/div>\n<p><b>Medium wave<\/b> (<b>MW<\/b>) is the part of the <a title=\"Medium frequency\" href=\"https:\/\/en.wikipedia.org\/wiki\/Medium_frequency\">medium frequency<\/a> (MF) <a class=\"mw-redirect\" title=\"Radio band\" href=\"https:\/\/en.wikipedia.org\/wiki\/Radio_band\">radio band<\/a> used mainly for <a title=\"AM broadcasting\" href=\"https:\/\/en.wikipedia.org\/wiki\/AM_broadcasting\">AM radio broadcasting<\/a>. For <a title=\"Europe\" href=\"https:\/\/en.wikipedia.org\/wiki\/Europe\">Europe<\/a> the MW band ranges from 526.5\u00a0kHz to 1606.5\u00a0kHz,<sup id=\"cite_ref-1\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/Medium_wave#cite_note-1\">[1]<\/a><\/sup> using channels spaced every 9\u00a0kHz, and in <a title=\"North America\" href=\"https:\/\/en.wikipedia.org\/wiki\/North_America\">North America<\/a> an <a class=\"mw-redirect\" title=\"Extended AM broadcast band\" href=\"https:\/\/en.wikipedia.org\/wiki\/Extended_AM_broadcast_band\">extended MW broadcast band<\/a> goes from 535\u00a0kHz to 1705\u00a0kHz,<sup id=\"cite_ref-2\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/Medium_wave#cite_note-2\">[2]<\/a><\/sup> using 10\u00a0kHz spaced channels.<\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/06\/26\/medium-wave\/",
+        "date": "2015-06-26T17:39:40",
+        "modified": "2015-08-19T20:00:31",
+        "format": "standard",
+        "slug": "medium-wave",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=30",
+        "excerpt": "<p>Medium wave (MW) is the part of the medium frequency (MF) radio band used mainly for AM radio broadcasting. For Europe the MW band ranges from 526.5\u00a0kHz to 1606.5\u00a0kHz,[1] using channels spaced every 9\u00a0kHz, and in North America an extended MW broadcast band goes from 535\u00a0kHz to 1705\u00a0kHz,[2] using 10\u00a0kHz spaced channels.<\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-06-26T17:39:40",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:31",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/30",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/3",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/30\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/30\/revisions"
+            }
+        },
+        "blurb": "Medium wave (MW) is the part of the medium frequency (MF) radio band used mainly for AM radio broadcasting.",
+        "featured_image": null,
+        "terms": {
+            "post_tag": [{
+                    "ID": 8,
+                    "name": "science",
+                    "slug": "science",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 3,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/science\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/8"
+                        }
+                    }
+                }],
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 28,
+        "title": "Jennier Ruiz",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 1,
+            "username": "admin",
+            "name": "admin",
+            "first_name": "",
+            "last_name": "",
+            "nickname": "admin",
+            "slug": "admin",
+            "URL": "",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/admin-4.jpg",
+            "description": "",
+            "registered": "2015-06-18T21:02:11+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/1",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/1\/posts"
+                }
+            },
+            "title": "",
+            "github": "timothy-kim",
+            "stackID": ""
+        },
+        "content": "<p><b>Jennifer &#8216;Jenny&#8217; Marie Ruiz-Williams<\/b> (born August 9, 1983) is a <a class=\"mw-redirect\" title=\"Mexican-American\" href=\"https:\/\/en.wikipedia.org\/wiki\/Mexican-American\">Mexican-American<\/a> <a title=\"Women's association football\" href=\"https:\/\/en.wikipedia.org\/wiki\/Women%27s_association_football\">soccer<\/a> <a class=\"mw-redirect\" title=\"Midfielder (association football)\" href=\"https:\/\/en.wikipedia.org\/wiki\/Midfielder_%28association_football%29\">midfielder<\/a> and <a title=\"Defender (association football)\" href=\"https:\/\/en.wikipedia.org\/wiki\/Defender_%28association_football%29\">defender<\/a>. She previously played for the <a title=\"Seattle Reign FC\" href=\"https:\/\/en.wikipedia.org\/wiki\/Seattle_Reign_FC\">Seattle Reign FC<\/a> in the <a title=\"National Women's Soccer League\" href=\"https:\/\/en.wikipedia.org\/wiki\/National_Women%27s_Soccer_League\">National Women&#8217;s Soccer League<\/a> and the <a title=\"Mexico women's national football team\" href=\"https:\/\/en.wikipedia.org\/wiki\/Mexico_women%27s_national_football_team\">Mexico women&#8217;s national football team<\/a>.<\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/06\/26\/jennier-ruiz\/",
+        "date": "2015-06-26T17:39:18",
+        "modified": "2015-08-19T20:00:31",
+        "format": "standard",
+        "slug": "jennier-ruiz",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=28",
+        "excerpt": "<p>Jennifer &#8216;Jenny&#8217; Marie Ruiz-Williams (born August 9, 1983) is a Mexican-American soccer midfielder and defender. She previously played for the Seattle Reign FC in the National Women&#8217;s Soccer League and the Mexico women&#8217;s national football team.<\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-06-26T17:39:18",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:31",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/28",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/1",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/28\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/28\/revisions"
+            }
+        },
+        "blurb": "",
+        "featured_image": null,
+        "terms": {
+            "post_tag": [{
+                    "ID": 6,
+                    "name": "people",
+                    "slug": "people",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 3,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/people\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/6"
+                        }
+                    }
+                }, {
+                    "ID": 7,
+                    "name": "sports",
+                    "slug": "sports",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 1,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/sports\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/7"
+                        }
+                    }
+                }],
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }, {
+        "ID": 26,
+        "title": "Rajiv Anchal",
+        "status": "publish",
+        "type": "post",
+        "author": {
+            "ID": 2,
+            "username": "gengel",
+            "name": "Gregory Engel",
+            "first_name": "Gregory",
+            "last_name": "Engel",
+            "nickname": "gengel",
+            "slug": "gengel",
+            "URL": "http:\/\/www.washingtonpost.com",
+            "avatar": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-content\/authors\/gengel-6.jpg",
+            "description": "",
+            "registered": "2015-06-26T17:26:51+00:00",
+            "meta": {
+                "links": {
+                    "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2",
+                    "archives": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2\/posts"
+                }
+            },
+            "title": "developer",
+            "github": "gengel",
+            "stackID": ""
+        },
+        "content": "<p><b>Rajiv Anchal<\/b> (<a class=\"mw-redirect\" title=\"Malayalam language\" href=\"https:\/\/en.wikipedia.org\/wiki\/Malayalam_language\">Malayalam<\/a>: <span lang=\"ml\" xml:lang=\"ml\">\u0d30\u0d3e\u0d1c\u0d40\u0d35\u0d4d \u0d05\u0d1e\u0d4d\u0d1a\u0d7d<\/span>) is a screenwriter and film director from <a title=\"Kerala\" href=\"https:\/\/en.wikipedia.org\/wiki\/Kerala\">Kerala<\/a>. He has directed eight feature films. Of late, he has based his movies in the United States. He is the life member of International Film And Television Club of <a class=\"mw-redirect\" title=\"Asian Academy Of Film &amp; Television\" href=\"https:\/\/en.wikipedia.org\/wiki\/Asian_Academy_Of_Film_%26_Television\">Asian Academy Of Film &amp; Television<\/a>. His magnum opus is a Malayalam film, <i><a title=\"Guru (1997 film)\" href=\"https:\/\/en.wikipedia.org\/wiki\/Guru_%281997_film%29\">Guru<\/a><\/i>, which is a symbolic and allegorical movie about the blind faith which has been perpetuated on the human mankind. <i>Guru<\/i> was officially the <a title=\"List of Indian submissions for the Academy Award for Best Foreign Language Film\" href=\"https:\/\/en.wikipedia.org\/wiki\/List_of_Indian_submissions_for_the_Academy_Award_for_Best_Foreign_Language_Film\">Indian submission for the Academy Award for Best Foreign Language Film<\/a> in 1997. It was the first ever <a title=\"Malayalam\" href=\"https:\/\/en.wikipedia.org\/wiki\/Malayalam\">Malayalam<\/a> movie selected as an entry for Academy Awards. His <i>Beyond the Soul<\/i> won three awards at the <a class=\"mw-redirect\" title=\"New York International Independent Film &amp; Video Festival\" href=\"https:\/\/en.wikipedia.org\/wiki\/New_York_International_Independent_Film_%26_Video_Festival\">New York International Independent Film &amp; Video Festival<\/a>: Best Director, Best Screenplay and Grand Jury Prize for Best Feature Film in 2003. His latest film is <i><a title=\"Paattinte Palazhy\" href=\"https:\/\/en.wikipedia.org\/wiki\/Paattinte_Palazhy\">Paattinte Palazhy<\/a><\/i> (2010).<sup id=\"cite_ref-1\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/Rajiv_Anchal#cite_note-1\">[1]<\/a><\/sup><\/p>\n<p>Rajeev Anchal was previously working as an art director too. <i><a title=\"Adharvam\" href=\"https:\/\/en.wikipedia.org\/wiki\/Adharvam\">Adharvam<\/a><\/i> (1989) and <i><a title=\"Njan Gandharvan\" href=\"https:\/\/en.wikipedia.org\/wiki\/Njan_Gandharvan\">Njan Gandharvan<\/a><\/i> (1991) had him working in the art department. He received the Kerala State Award for Best Art Direction for <i><a title=\"Njan Gandharvan\" href=\"https:\/\/en.wikipedia.org\/wiki\/Njan_Gandharvan\">Njan Gandharvan<\/a><\/i>. He was also the art consultant for <i><a title=\"Manu Uncle\" href=\"https:\/\/en.wikipedia.org\/wiki\/Manu_Uncle\">Manu Uncle<\/a><\/i> (1984).<\/p>\n<p>In 1992, Anchal had begun shooting a film called <i>Australia<\/i>, however the project was abandoned after shooting began. He then began film called <i><a title=\"Butterflies (1993 film)\" href=\"https:\/\/en.wikipedia.org\/wiki\/Butterflies_%281993_film%29\">Butterflies<\/a><\/i>, and in it included some of the racing footage originally shot for the canceled project.<sup id=\"cite_ref-2\" class=\"reference\"><a href=\"https:\/\/en.wikipedia.org\/wiki\/Rajiv_Anchal#cite_note-2\">[2]<\/a><\/sup><\/p>\n<p>Rajiv <a class=\"external text\" href=\"http:\/\/www.jatayusculpture.com\/html\/rajivanchal.php\" rel=\"nofollow\">who is also a sculptor<\/a> is currently engaged in the mighty project of <a class=\"external text\" href=\"http:\/\/www.jatayusculpture.com\/html\/sculpture.php\" rel=\"nofollow\">Jatayu Sculpture<\/a>. The popular Ramayana legend about Jatayu has a connection with Kerala. It is believed, Jatayu, when Ravana cut his wings, fallen off at this place.<\/p>\n<p>And any mentioning about this personality would be left incomplete unless his close associations with <a title=\"Karunakara Guru\" href=\"https:\/\/en.wikipedia.org\/wiki\/Karunakara_Guru\">Karunakara Guru<\/a>, <a class=\"mw-redirect\" title=\"Santhigiri Ashram\" href=\"https:\/\/en.wikipedia.org\/wiki\/Santhigiri_Ashram\">Santhigiri Ashram<\/a>, <a title=\"Thiruvananthapuram\" href=\"https:\/\/en.wikipedia.org\/wiki\/Thiruvananthapuram\">Thiruvananthapuram<\/a> is quoted. Rajiv is a follower of this Guru and his unique, secular ideology and closely associated with the Ashram.<\/p>\n",
+        "parent": null,
+        "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/06\/26\/rajiv-anchal\/",
+        "date": "2015-06-26T17:38:48",
+        "modified": "2015-08-19T20:00:31",
+        "format": "standard",
+        "slug": "rajiv-anchal",
+        "guid": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/?p=26",
+        "excerpt": "<p>Rajiv Anchal (Malayalam: \u0d30\u0d3e\u0d1c\u0d40\u0d35\u0d4d \u0d05\u0d1e\u0d4d\u0d1a\u0d7d) is a screenwriter and film director from Kerala. He has directed eight feature films. Of late, he has based his movies in the United States. He is the life member of International Film And Television Club of Asian Academy Of Film &amp; Television. His magnum opus is a Malayalam film, &hellip; <a href=\"http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/2015\/06\/26\/rajiv-anchal\/\" class=\"more-link\">Continue reading <span class=\"screen-reader-text\">Rajiv Anchal<\/span><\/a><\/p>\n",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "date_tz": "UTC",
+        "date_gmt": "2015-06-26T17:38:48",
+        "modified_tz": "UTC",
+        "modified_gmt": "2015-08-19T20:00:31",
+        "meta": {
+            "links": {
+                "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/26",
+                "author": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/users\/2",
+                "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts",
+                "replies": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/26\/comments",
+                "version-history": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/posts\/26\/revisions"
+            }
+        },
+        "blurb": "Rajiv Anchal is a screenwriter and film director from Kerala. He has directed eight feature films. Of late, he has based his movies in the United States. He is the life member of International Film And Television Club of Asian Academy Of Film & Television.",
+        "featured_image": null,
+        "terms": {
+            "post_tag": [{
+                    "ID": 5,
+                    "name": "film",
+                    "slug": "film",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 1,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/film\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/5"
+                        }
+                    }
+                }, {
+                    "ID": 6,
+                    "name": "people",
+                    "slug": "people",
+                    "description": "",
+                    "taxonomy": "post_tag",
+                    "parent": null,
+                    "count": 3,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/tag\/people\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/post_tag\/terms\/6"
+                        }
+                    }
+                }],
+            "category": [{
+                    "ID": 1,
+                    "name": "Uncategorized",
+                    "slug": "uncategorized",
+                    "description": "",
+                    "taxonomy": "category",
+                    "parent": null,
+                    "count": 19,
+                    "link": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/category\/uncategorized\/",
+                    "meta": {
+                        "links": {
+                            "collection": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms",
+                            "self": "http:\/\/platform-wp-demo-elb-1950808061.us-east-1.elb.amazonaws.com\/wp-json\/taxonomies\/category\/terms\/1"
+                        }
+                    }
+                }]
+        }
+    }]
