@@ -1,7 +1,6 @@
 package com.washingtonpost.wordpress.rest.api;
 
 import com.washingtonpost.wordpress.rest.api.model.WordPressPost;
-import com.washingtonpost.wordpress.rest.api.transformers.WordPressTransformer;
 import java.io.IOException;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -15,12 +14,14 @@ public class TestJAXRSWordPressClient {
 
     @Test
     public void testHappyPath() throws IOException {
-        WordPressClient client = new JAXRSWordPressClient("http://blah.com",
-                                                          new WordPressTransformer());
+
+        WordPressClient client = new JAXRSWordPressClientFactory().withMockResource("example_response.json").build();
         List<WordPressPost> posts = client.getPosts("?whatever=true&foo=bar");
 
         assertNotNull("List of posts should not be null", posts);
-        assertEquals(1, posts.size());
-        assertEquals(123, posts.get(0).getId());
+
+        WordPressPost post = posts.get(0);
+        assertEquals(54, post.getId());
+        assertEquals("Gulp for cross-newsroom workflows", post.getTitle());
     }
 }
