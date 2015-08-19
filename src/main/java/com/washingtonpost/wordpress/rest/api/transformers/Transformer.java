@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  * <p>An interface describing how to transform JSON into a Model object</p>
- * @param <T> The type of post this Transformer produces.
+ * @param <P> The type of post this Transformer produces.
  */
-public interface Transformer<T extends Post> {
+public interface Transformer<P extends Post> {
 
-    List<T> transform(String json) throws IOException;
+    List<P> transform(String json) throws IOException;
 }

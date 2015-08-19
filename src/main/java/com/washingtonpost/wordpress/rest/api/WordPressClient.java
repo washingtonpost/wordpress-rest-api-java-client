@@ -1,14 +1,18 @@
 package com.washingtonpost.wordpress.rest.api;
 
-import com.washingtonpost.wordpress.rest.api.model.WordPressPost;
-import com.washingtonpost.wordpress.rest.api.transformers.WordPressTransformer;
+import com.washingtonpost.wordpress.rest.api.model.Post;
+import java.io.IOException;
+import java.util.List;
 
 /**
- * <p>Blah</p>
+ * <p>The interface describing how to connect to a WordPress REST API and get a List of Posts out of it</p>
+ * @param P The type of model object the implementing Client returns
  */
-public class WordPressClient extends AbstractWordPressRestClient<WordPressPost, WordPressTransformer> {
+public interface WordPressClient<P extends Post> {
 
-    public WordPressClient(String targetUri) {
-        super(targetUri);
-    }
+    /**
+     * @param queryParams How to query the WordPress API
+     * @return A list of {@code T} object matching the queryParams
+     */
+    List<P> getPosts(String queryParams) throws IOException;
 }
