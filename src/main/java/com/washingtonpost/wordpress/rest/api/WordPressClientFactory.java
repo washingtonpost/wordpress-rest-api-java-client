@@ -32,19 +32,18 @@ import org.slf4j.LoggerFactory;
  *                                          .build();
  * </pre>
  */
-public class JAXRSWordPressClientFactory {
-    private static final Logger logger = LoggerFactory.getLogger(JAXRSWordPressClientFactory.class);
+public class WordPressClientFactory {
+    private static final Logger logger = LoggerFactory.getLogger(WordPressClientFactory.class);
     private ClientRequestFilter clientRequestFilter;
     private Transformer<? extends Post> transformer = new WordPressTransformer();
     private URI uri;
     private String mockResource = null;
 
-    public JAXRSWordPressClientFactory() {
-
+    public WordPressClientFactory() {
     }
 
 
-    public JAXRSWordPressClientFactory withCredentials(String username, String password) {
+    public WordPressClientFactory withCredentials(String username, String password) {
         this.clientRequestFilter = new ClientRequestFilter() {
             private final String charset = StandardCharsets.UTF_8.name();
 
@@ -71,7 +70,7 @@ public class JAXRSWordPressClientFactory {
         return this;
     }
 
-    public JAXRSWordPressClientFactory withBaseUrl(String baseUrl) {
+    public WordPressClientFactory withBaseUrl(String baseUrl) {
         try {
             this.uri = new URI(baseUrl);
         }
@@ -81,16 +80,19 @@ public class JAXRSWordPressClientFactory {
         return this;
     }
 
-    public JAXRSWordPressClientFactory withMockResource(String mockResource) {
+    public WordPressClientFactory withMockResource(String mockResource) {
         this.mockResource = mockResource;
         return this;
     }
 
-    public JAXRSWordPressClientFactory withTransformer(Transformer<? extends Post> transformer) {
+    public WordPressClientFactory withTransformer(Transformer<? extends Post> transformer) {
         this.transformer = transformer;
         return this;
     }
 
+    /**
+     * @return Returns an instance of a WordPressClient (by default, a JAXRSWordPressClient)
+     */
     public WordPressClient build() {
         if (this.mockResource != null) {
             return new MockWordPressClient(this.mockResource, transformer);
