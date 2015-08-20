@@ -15,7 +15,8 @@ public class TestJAXRSWordPressClient {
     @Test
     public void testHappyPath() throws IOException {
 
-        WordPressClient client = new WordPressClientFactory().withMockResource("off-the-shelf-response.json").build();
+        WordPressClient<WordPressPost> client =
+                new WordPressClientFactory().withMockResource("off-the-shelf-response.json").build();
         List<WordPressPost> posts = client.getPosts("?whatever=true&foo=bar");
 
         assertNotNull("List of posts should not be null", posts);
