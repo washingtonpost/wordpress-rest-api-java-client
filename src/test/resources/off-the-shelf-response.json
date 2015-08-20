@@ -1,0 +1,21 @@
+[
+    {
+        "ID": 54,
+        "title": "Gulp for cross-newsroom workflows",
+        "content_raw": "Here's some content",
+        "excerpt_raw": "My raw excerpt",
+        "name": "An example post",
+        "status": "publish",
+        "type": "post",
+        "date": "2015-07-27T13:13:01",
+        "date_gmt": "2015-07-27T13:13:01",
+        "author": "Ernest Hemmingway",
+        "post_parent": 123,
+        "post_format": "standard",
+        "menu_order": 0,
+        "comment_status": "open",
+        "ping_status": "open",
+        "sticky": false,
+        "post_meta": "foo"
+    }
+]
