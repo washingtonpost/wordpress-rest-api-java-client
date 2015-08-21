@@ -1,5 +1,9 @@
 # wordpress-rest-api-client RELEASE NOTES
 
+## 1.0.3 Release Date TBD
+
+* Switched to MIT License
+
 ## 1.0.2 Release Date 2015/08/20
 
 * Third time's a charm on the javadoc attachment (descending now from wp-oss-parent-pom 0.0.6)
