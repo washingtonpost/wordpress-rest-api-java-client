@@ -1,6 +1,6 @@
 # wordpress-rest-api-client RELEASE NOTES
 
-## 1.0.3 Release Date TBD
+## 1.0.3 Release Date 2015/08/26 
 
 * Switched to MIT License
 * Improving logging and test coverage
