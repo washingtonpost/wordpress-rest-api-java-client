@@ -57,11 +57,15 @@ public class JAXRSWordPressClient implements WordPressClient {
 
     @Override
     public List<? extends Post> getPosts(String queryParams) {
-        logger.debug("JAXRSWordPressClient making request to /posts endpoint of '{}' with query parameters '{}'",
-                this.targetURI, queryParams);
+        StringBuilder endpoint = new StringBuilder(this.targetURI.toString()).append("/posts");
+        if (queryParams != null && !queryParams.isEmpty()) {
+            endpoint.append("?").append(queryParams);
+        }
+        
+        logger.debug("JAXRSWordPressClient making request to '{}'", endpoint);
+
         Response response = jaxrsClient
-                .target(targetURI)
-                .path("/posts?" + queryParams)
+                .target(endpoint.toString())
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
@@ -77,7 +81,7 @@ public class JAXRSWordPressClient implements WordPressClient {
         }
         else {
             String errMsg = String.format("Did not get an OK status code from WordPress API at %s, rather: %s",
-                    this.targetURI, response.getStatusInfo());
+                    endpoint, response.getStatusInfo());
             logger.error(errMsg);
             throw new RuntimeException(errMsg);
         }

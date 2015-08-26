@@ -76,6 +76,7 @@ public class WordPressClientFactory {
         }
         catch (URISyntaxException e) {
             logger.error("Unable to turn {} into a URI", baseUrl, e);
+            throw new IllegalArgumentException(e);
         }
         return this;
     }
