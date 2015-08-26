@@ -4,7 +4,9 @@ import com.washingtonpost.wordpress.rest.api.model.Post;
 import com.washingtonpost.wordpress.rest.api.transformers.Transformer;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -12,6 +14,7 @@ import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +26,7 @@ public class JAXRSWordPressClient implements WordPressClient {
     private static final Logger logger = LoggerFactory.getLogger(JAXRSWordPressClient.class);
 
     private final URI targetURI;
-    private final Transformer transformer;
+    private final Transformer<? extends Post> transformer;
     private Client jaxrsClient;
 
     /**
@@ -48,11 +51,14 @@ public class JAXRSWordPressClient implements WordPressClient {
         if (requestFilter != null) {
             jaxrsClient = jaxrsClient.register(requestFilter);
         }
+        logger.debug("Constructing new JAXRSWordPressClient with targetURI '{}' and transformer '{}' "
+                + "and requestFilter '{}'", targetURI, transformer, requestFilter);
     }
 
     @Override
     public List<? extends Post> getPosts(String queryParams) {
-
+        logger.debug("JAXRSWordPressClient making request to /posts endpoint of '{}' with query parameters '{}'",
+                this.targetURI, queryParams);
         Response response = jaxrsClient
                 .target(targetURI)
                 .path("/posts?" + queryParams)
@@ -70,19 +76,26 @@ public class JAXRSWordPressClient implements WordPressClient {
             }
         }
         else {
-            logger.error("Did not get an OK status code from WordPress API, rather: {}", response.getStatusInfo());
-            throw new RuntimeException("Did not get an OK status code from WordPress API, rather: " + response.getStatusInfo());
+            String errMsg = String.format("Did not get an OK status code from WordPress API at %s, rather: %s",
+                    this.targetURI, response.getStatusInfo());
+            logger.error(errMsg);
+            throw new RuntimeException(errMsg);
         }
     }
 
     /**
-     * Do this "the hard way" (i.e. write our own) to minimize the transitive dependencies that we force on our users.  There's
-     * an implementation of this in Apache Commons IO and Guava, but neither of those need to be transitively forced on the
-     * application that uses this Client for this one-off conversion.
-     * @param inputStream An input stream that we assume contains a bunch of JSON
+     * Visible for testing.
+     * @param inputStream An input stream 
      * @return The String content of that inputStream
      */
-    private String readInputStreamToString(InputStream inputStream) {
-        return "[{\"title\":\"This is a title!\", \"ID\":123}]";
+    String readInputStreamToString(InputStream inputStream) {
+        StringWriter writer = new StringWriter();
+        try {
+            IOUtils.copy(inputStream, writer, Charset.forName("UTF-8"));
+        }
+        catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        return writer.toString();
     }
 }
