@@ -13,6 +13,7 @@ import org.junit.Test;
 /**
  * <p>Tests the JAXRSWordPressClient</p>
  */
+@SuppressWarnings("unchecked")
 public class TestJAXRSWordPressClient {
 
     @Test

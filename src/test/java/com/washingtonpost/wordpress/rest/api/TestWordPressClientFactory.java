@@ -11,6 +11,7 @@ import org.junit.Test;
 /**
  * <p>Tests the WordPressClientFactory</p>
  */
+@SuppressWarnings("unchecked")
 public class TestWordPressClientFactory {
 
     @Test(expected=IllegalArgumentException.class)

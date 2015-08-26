@@ -14,6 +14,7 @@ import org.junit.Test;
 /**
  * <p>Uses WireMock to assert what the client is actually requesting on the wire of our "server"</p>
  */
+@SuppressWarnings("unchecked")
 public class IntTestJAXRSWordPressClient {
 
     private final int port = 8089;
