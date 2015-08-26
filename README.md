@@ -12,7 +12,7 @@ Add this dependency to your Maven POM:
 <dependency>
     <groupId>com.washingtonpost.wordpress</groupId>
     <artifactId>wordpress-rest-api-client</artifactId>
-    <version>1.0.0</version>
+    <version>x.y.z</version>  // Check RELEASE_NOTES.md for the best version for your needs
 </dependency>
 ```
 
