@@ -3,6 +3,7 @@
 ## 1.0.3 Release Date TBD
 
 * Switched to MIT License
+* Improving logging and test coverage
 
 ## 1.0.2 Release Date 2015/08/20
 

@@ -21,6 +21,7 @@
         <version.jersey>2.17</version.jersey>
         <version.junit>4.12</version.junit>
         <version.slf4j>1.7.10</version.slf4j>
+        <version.wiremock>1.57</version.wiremock>
         <version.wp.checkstyle>1.1</version.wp.checkstyle>
     </properties>
 
@@ -79,6 +80,19 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${version.assertj}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>${version.wiremock}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- So our int tests actually log to files -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${version.slf4j}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
