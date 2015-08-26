@@ -10,7 +10,7 @@
     
     <groupId>com.washingtonpost.wordpress</groupId>
     <artifactId>wordpress-rest-api-client</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
         <jacoco.datafile.location>${project.build.directory}/jacoco/coverage.exec</jacoco.datafile.location>
@@ -28,7 +28,7 @@
     <scm>
         <connection>scm:git:git@github.com:washingtonpost/wordpress-rest-api-java-client.git</connection>
         <developerConnection>scm:git:git@github.com:washingtonpost/wordpress-rest-api-java-client.git</developerConnection>
-        <tag>1.0.3</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/washingtonpost/wordpress-rest-api-client.git</url>
     </scm>
     
